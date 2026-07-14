@@ -1,5 +1,5 @@
 ![Duoc UC](https://www.duoc.cl/wp-content/uploads/2022/09/logo-0.png)
-# 🧠 Actividad Sumativa 1: Realizando validación, excepciones y relaciones entre clases – Desarrollo Orientado a Objetos I
+# 🧠 Actividad 8: Interfaces e integración con colecciones genéricas
 
 ## 👤 Autor del proyecto
 - **Nombre completo:** Javiera Quiñones Sandoval
