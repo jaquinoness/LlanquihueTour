@@ -10,11 +10,14 @@
 ---
 
 ## 📘 Descripción general del sistema
-Este proyecto corresponde a la primera actividad sumativa de la asignatura *Desarrollo Orientado a Objetos I*. 
-Sistema desarrollado en JAVA, que representa una solucion para una agencia de turismo: *Llanquihue Tour*. 
-El objetivo es desarrollar soluciones orientadas a objetos mediante clases que representen entidades relevantes del dominio del problema, ocultando detalles de implementación no esenciales.
-Aplicar buenas prácticas de programación, como nombrado significativo, modularidad, documentación y composición de clases, en el desarrollo de soluciones orientadas a objetos y
-generar soluciones algorítmicas aplicando el concepto de composición de clases para la reutilización de código.
+
+**LlanquihueTour** es un sistema de gestión turística desarrollado en Java que modela una agencia de turismo de la región de Los Lagos. Permite registrar y visualizar dos tipos de entidades del dominio: servicios turísticos y colaboradores.
+
+El sistema ha sido actualizado para incorporar:
+- Una **interfaz gráfica** (GUI) construida con `JFrame` y `JOptionPane` de Java Swing.
+- Una **colección polimórfica** gestionada por la clase `GestorEntidades`, que almacena objetos de distintas clases bajo el tipo común `Registrable`.
+- Uso del operador `instanceof` para identificar el tipo concreto de cada objeto y aplicar lógica diferenciada.
+- Captura del método `mostrarResumen()` de la interfaz para visualizar los datos en un panel de resumen dentro de la GUI.
 
 ---
 
@@ -22,14 +25,49 @@ generar soluciones algorítmicas aplicando el concepto de composición de clases
 
 ```plaintext
 📁 src/
-├── app/         # Clase principal con el método main
-├── model/       # Clases de dominio (Persona, Cliente, Colaborador, Sucursal, etc)
-├── utils/       # Utilidades y validaciones
-````
+├── app/
+│   └── Main.java                        # Clase principal — punto de entrada y GUI
+├── data/
+│   └── GestorEntidades.java             # Gestión de la colección ArrayList<Registrable>
+├── model/
+│   ├── Registrable.java                 # Interfaz con mostrarResumen()
+│   ├── Rut.java                         # Clase con validación de RUT chileno
+│   ├── Direccion.java                   # Clase de composición para direcciones
+│   ├── colaboradores/
+│   │   ├── Persona.java                 # Clase base de colaboradores
+│   │   ├── GuiaTuristico.java           # Implementa Registrable
+│   │   ├── OperadorLocal.java           # Implementa Registrable
+│   │   └── Proveedor.java               # Implementa Registrable
+│   └── servicios/
+│       ├── ServicioTuristico.java        # Clase base de servicios
+│       ├── PaseoLacustre.java            # Implementa Registrable
+│       ├── ExcursionCultural.java        # Implementa Registrable
+│       └── RutaGastronomica.java         # Implementa Registrable
+└── util/
+    └── RutInvalidoException.java         # Excepción personalizada para RUT inválido
+```
 
 ---
 
+## 🔷 Clases e interfaces utilizadas
 
+| Elemento | Tipo | Descripción |
+|---|---|---|
+| `Registrable` | Interfaz | Define el contrato `mostrarResumen()` para todas las entidades |
+| `GestorEntidades` | Clase | Administra `ArrayList<Registrable>`, usa `for-each` e `instanceof` |
+| `ServicioTuristico` | Clase abstracta base | Superclase de los servicios turísticos |
+| `PaseoLacustre` | Clase | Servicio de paseo en lago, implementa `Registrable` |
+| `ExcursionCultural` | Clase | Servicio de excursión cultural, implementa `Registrable` |
+| `RutaGastronomica` | Clase | Servicio de ruta gastronómica, implementa `Registrable` |
+| `Persona` | Clase base | Superclase de los colaboradores |
+| `GuiaTuristico` | Clase | Colaborador guía turístico, implementa `Registrable` |
+| `OperadorLocal` | Clase | Colaborador operador de planta, implementa `Registrable` |
+| `Proveedor` | Clase | Colaborador proveedor, implementa `Registrable` |
+| `Rut` | Clase | Encapsula y valida el RUT chileno con `RutInvalidoException` |
+| `Direccion` | Clase | Composición utilizada por las personas |
+| `RutInvalidoException` | Excepción personalizada | Lanzada cuando el formato del RUT es inválido |
+
+---
 
 ## ⚙️ Instrucciones para clonar y ejecutar el proyecto
 
@@ -39,11 +77,23 @@ generar soluciones algorítmicas aplicando el concepto de composición de clases
 git clone https://github.com/jaquinoness/LlanquihueTour.git
 ```
 
-2. Abre el proyecto en IntelliJ IDEA.
+2. Abre el proyecto en **IntelliJ IDEA** (o cualquier IDE compatible con Java).
 
-3. Ejecuta el archivo `Main.java` desde el paquete `app`.
+3. Verifica que el JDK configurado sea **Java 11 o superior** (se usa `String.isBlank()`).
 
-5. Sigue las instrucciones en consola o en la interfaz gráfica (si corresponde).
+4. Ejecuta la clase principal desde la ruta:
+
+```
+src/app/Main.java
+```
+
+5. Se abrirá una ventana gráfica con las siguientes opciones:
+   - **Crear Paseo Lacustre** → completa el formulario en panel único y confirma.
+   - **Crear Guía Turístico** → completa el formulario con datos personales y dirección.
+   - **Ver Resumen de Entidades** → muestra todas las entidades registradas con su `mostrarResumen()`.
+   - **Salir** → cierra la aplicación.
+
+> **Nota:** El RUT debe ingresarse en formato `12345678-9` (dígitos, guión, dígito verificador). Cualquier otro formato mostrará un error.
 
 ---
 
