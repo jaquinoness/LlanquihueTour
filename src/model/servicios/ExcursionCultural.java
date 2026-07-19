@@ -60,11 +60,16 @@ public class ExcursionCultural extends ServicioTuristico implements Registrable 
     }
     
     @Override
-    public void mostrarResumen() {
+    public void registrar() {
+        System.out.println("Registrando excursión cultural: " + getNombre() + " | Valor: $" + valor);
+    }
+
+    @Override
+    public void mostrarDatos() {
         System.out.println("Excursión Cultural: " + getNombre());
         System.out.println("Duración: " + getDuracionHoras() + " horas");
         System.out.println("Lugar histórico: " + lugarHistorico);
         System.out.println("Hora de partida: " + horaPartida);
-        System.out.println("Valor: " + valor);
+        System.out.println("Valor: $" + valor);
     }
 }

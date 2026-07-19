@@ -1,5 +1,5 @@
 ![Duoc UC](https://www.duoc.cl/wp-content/uploads/2022/09/logo-0.png)
-# 🧠 Actividad 8: Interfaces e integración con colecciones genéricas
+# Llanquihue Tour App
 
 ## 👤 Autor del proyecto
 - **Nombre completo:** Javiera Quiñones Sandoval
@@ -9,96 +9,122 @@
 
 ---
 
-## 📘 Descripción general del sistema
+## 📘 Propósito del sistema
 
-**LlanquihueTour** es un sistema de gestión turística desarrollado en Java que modela una agencia de turismo de la región de Los Lagos. Permite registrar y visualizar dos tipos de entidades del dominio: servicios turísticos y colaboradores.
+**LlanquihueTour** es un prototipo de software modular desarrollado en Java para la agencia de turismo **Llanquihue Tour**, ubicada en la región de Los Lagos. Su objetivo es digitalizar la gestión operativa de la agencia: registrar clientes, colaboradores y servicios turísticos de forma estructurada, reemplazando los procesos manuales que generan errores y pérdida de información.
 
-El sistema ha sido actualizado para incorporar:
-- Una **interfaz gráfica** (GUI) construida con `JFrame` y `JOptionPane` de Java Swing.
-- Una **colección polimórfica** gestionada por la clase `GestorEntidades`, que almacena objetos de distintas clases bajo el tipo común `Registrable`.
-- Uso del operador `instanceof` para identificar el tipo concreto de cada objeto y aplicar lógica diferenciada.
-- Captura del método `mostrarResumen()` de la interfaz para visualizar los datos en un panel de resumen dentro de la GUI.
+El sistema aplica los principios fundamentales de la **Programación Orientada a Objetos**:
+- **Encapsulamiento** — atributos privados con getters y setters en todas las clases.
+- **Herencia** — jerarquías `Persona → Cliente / GuiaTuristico / OperadorLocal / Proveedor` y `ServicioTuristico → PaseoLacustre / ExcursionCultural / RutaGastronomica`.
+- **Polimorfismo** — lista `ArrayList<Registrable>` que gestiona distintos tipos bajo un contrato común.
+- **Composición** — `Persona` contiene `Direccion` y `Rut`.
+- **Interfaces** — `Registrable` define `registrar()` y `mostrarDatos()` para todas las entidades.
+- **Colecciones** — `ArrayList<Registrable>` para la gestión general y `HashMap<String, Cliente>` para búsqueda eficiente por RUT.
+- **Archivos .txt** — datos de prueba cargados al inicio desde `recursos/clientes.txt` y `recursos/servicios.txt`.
+- **Excepciones personalizadas** — `RutInvalidoException` valida el formato del RUT chileno.
 
 ---
 
-## 🧱 Estructura general del proyecto
+## 🧱 Estructura del proyecto
 
 ```plaintext
-📁 src/
-├── app/
-│   └── Main.java                        # Clase principal — punto de entrada y GUI
-├── data/
-│   └── GestorEntidades.java             # Gestión de la colección ArrayList<Registrable>
-├── model/
-│   ├── Registrable.java                 # Interfaz con mostrarResumen()
-│   ├── Rut.java                         # Clase con validación de RUT chileno
-│   ├── Direccion.java                   # Clase de composición para direcciones
-│   ├── colaboradores/
-│   │   ├── Persona.java                 # Clase base de colaboradores
-│   │   ├── GuiaTuristico.java           # Implementa Registrable
-│   │   ├── OperadorLocal.java           # Implementa Registrable
-│   │   └── Proveedor.java               # Implementa Registrable
-│   └── servicios/
-│       ├── ServicioTuristico.java        # Clase base de servicios
-│       ├── PaseoLacustre.java            # Implementa Registrable
-│       ├── ExcursionCultural.java        # Implementa Registrable
-│       └── RutaGastronomica.java         # Implementa Registrable
-└── util/
-    └── RutInvalidoException.java         # Excepción personalizada para RUT inválido
+📁 LlanquihueTour/
+├── recursos/
+│   ├── clientes.txt                      # Datos de prueba: clientes
+│   └── servicios.txt                     # Datos de prueba: servicios turísticos
+└── src/
+    ├── app/
+    │   └── Main.java                     # Punto de entrada y GUI (Java Swing)
+    ├── data/
+    │   └── GestorEntidades.java          # ArrayList<Registrable> + HashMap<String, Cliente>
+    ├── model/
+    │   ├── Registrable.java              # Interfaz: registrar() y mostrarDatos()
+    │   ├── Rut.java                      # Validación de RUT chileno
+    │   ├── Direccion.java                # Clase de composición para direcciones
+    │   ├── colaboradores/
+    │   │   ├── Persona.java              # Clase base de personas
+    │   │   ├── Cliente.java              # Extiende Persona, implementa Registrable
+    │   │   ├── GuiaTuristico.java        # Extiende Persona, implementa Registrable
+    │   │   ├── OperadorLocal.java        # Extiende Persona, implementa Registrable
+    │   │   └── Proveedor.java            # Extiende Persona, implementa Registrable
+    │   └── servicios/
+    │       ├── ServicioTuristico.java    # Clase base de servicios turísticos
+    │       ├── PaseoLacustre.java        # Extiende ServicioTuristico, implementa Registrable
+    │       ├── ExcursionCultural.java    # Extiende ServicioTuristico, implementa Registrable
+    │       └── RutaGastronomica.java     # Extiende ServicioTuristico, implementa Registrable
+    └── util/
+        ├── LectorDatos.java              # Lee archivos .txt y los convierte en objetos
+        └── RutInvalidoException.java     # Excepción personalizada para RUT inválido
 ```
 
 ---
 
-## 🔷 Clases e interfaces utilizadas
+## 🔷 Clases e interfaces
 
 | Elemento | Tipo | Descripción |
 |---|---|---|
-| `Registrable` | Interfaz | Define el contrato `mostrarResumen()` para todas las entidades |
-| `GestorEntidades` | Clase | Administra `ArrayList<Registrable>`, usa `for-each` e `instanceof` |
-| `ServicioTuristico` | Clase abstracta base | Superclase de los servicios turísticos |
-| `PaseoLacustre` | Clase | Servicio de paseo en lago, implementa `Registrable` |
-| `ExcursionCultural` | Clase | Servicio de excursión cultural, implementa `Registrable` |
-| `RutaGastronomica` | Clase | Servicio de ruta gastronómica, implementa `Registrable` |
-| `Persona` | Clase base | Superclase de los colaboradores |
-| `GuiaTuristico` | Clase | Colaborador guía turístico, implementa `Registrable` |
-| `OperadorLocal` | Clase | Colaborador operador de planta, implementa `Registrable` |
-| `Proveedor` | Clase | Colaborador proveedor, implementa `Registrable` |
-| `Rut` | Clase | Encapsula y valida el RUT chileno con `RutInvalidoException` |
-| `Direccion` | Clase | Composición utilizada por las personas |
-| `RutInvalidoException` | Excepción personalizada | Lanzada cuando el formato del RUT es inválido |
+| `Registrable` | Interfaz | Contrato común: `registrar()` y `mostrarDatos()` |
+| `GestorEntidades` | Clase | Gestiona `ArrayList<Registrable>` y `HashMap<String, Cliente>` |
+| `LectorDatos` | Clase utilitaria | Carga clientes y servicios desde archivos `.txt` |
+| `Persona` | Clase base | Superclase de todos los colaboradores y clientes |
+| `Cliente` | Clase | Extiende `Persona`, incluye nacionalidad y tipo de cliente |
+| `GuiaTuristico` | Clase | Extiende `Persona`, incluye zona y especialidad |
+| `OperadorLocal` | Clase | Extiende `Persona`, incluye sucursal y cargo |
+| `Proveedor` | Clase | Extiende `Persona`, factory methods para transporte/alojamiento |
+| `ServicioTuristico` | Clase base | Superclase de los servicios turísticos |
+| `PaseoLacustre` | Clase | Servicio de paseo lacustre con embarcación y valor |
+| `ExcursionCultural` | Clase | Servicio de excursión a lugar histórico |
+| `RutaGastronomica` | Clase | Servicio de ruta con paradas gastronómicas |
+| `Rut` | Clase | Encapsula y valida el RUT chileno |
+| `Direccion` | Clase | Composición usada en todas las personas |
+| `RutInvalidoException` | Excepción | Lanzada cuando el formato del RUT no es válido |
 
 ---
 
-## ⚙️ Instrucciones para clonar y ejecutar el proyecto
+## ⚙️ Instrucciones de ejecución
 
-1. Clona el repositorio desde GitHub:
+### Requisitos previos
+- **Java 11 o superior** (el proyecto usa `String.isBlank()`)
+- **IntelliJ IDEA** u otro IDE compatible con Java
+
+### Pasos
+
+1. Clona el repositorio:
 
 ```bash
 git clone https://github.com/jaquinoness/LlanquihueTour.git
 ```
 
-2. Abre el proyecto en **IntelliJ IDEA** (o cualquier IDE compatible con Java).
+2. Abre el proyecto en IntelliJ IDEA como proyecto Java existente.
 
-3. Verifica que el JDK configurado sea **Java 11 o superior** (se usa `String.isBlank()`).
+3. Verifica que el **directorio de trabajo** esté configurado en la raíz del proyecto:
+   - Ve a **Run → Edit Configurations**
+   - En **Working directory**, asegúrate que apunta a la carpeta `LlanquihueTour/` (donde están `src/` y `recursos/`)
 
-4. Ejecuta la clase principal desde la ruta:
+4. Ejecuta la clase `src/app/Main.java`.
 
-```
-src/app/Main.java
-```
+5. Al iniciar, el sistema carga automáticamente los datos desde `recursos/clientes.txt` y `recursos/servicios.txt`.
 
-5. Se abrirá una ventana gráfica con las siguientes opciones:
-   - **Crear Paseo Lacustre** → completa el formulario en panel único y confirma.
-   - **Crear Guía Turístico** → completa el formulario con datos personales y dirección.
-   - **Ver Resumen de Entidades** → muestra todas las entidades registradas con su `mostrarResumen()`.
-   - **Salir** → cierra la aplicación.
+6. La ventana principal presenta las siguientes funciones:
+
+| Botón | Descripción |
+|---|---|
+| Crear Paseo Lacustre | Registra un nuevo paseo lacustre |
+| Crear Excursión Cultural | Registra una nueva excursión cultural |
+| Crear Ruta Gastronómica | Registra una nueva ruta gastronómica |
+| Crear Guía Turístico | Registra un nuevo guía con datos personales |
+| Crear Operador Local | Registra un operador de sucursal |
+| Crear Proveedor | Registra un proveedor de transporte o alojamiento |
+| Crear Cliente | Registra un cliente nacional o extranjero |
+| Buscar Cliente por RUT | Consulta el `HashMap` por RUT ingresado |
+| Ver Resumen de Entidades | Muestra todas las entidades registradas |
+| Salir | Cierra la aplicación |
 
 > **Nota:** El RUT debe ingresarse en formato `12345678-9` (dígitos, guión, dígito verificador). Cualquier otro formato mostrará un error.
 
 ---
 
 **Repositorio GitHub:** https://github.com/jaquinoness/LlanquihueTour.git
-**Fecha de entrega:** 08/06/2026
 
 ---
 

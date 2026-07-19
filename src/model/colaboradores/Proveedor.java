@@ -78,7 +78,12 @@ public class Proveedor extends Persona implements Registrable{
     }
 
     @Override
-    public void mostrarResumen() {
+    public void registrar() {
+        System.out.println("Registrando proveedor: " + getNombre() + " " + getApellido() + " | Tipo: " + tipoProveedor);
+    }
+
+    @Override
+    public void mostrarDatos() {
         System.out.println("Proveedor: " + getNombre() + " " + getApellido());
         System.out.println("RUT: " + getRut());
         System.out.println("Teléfono: " + getTelefono());

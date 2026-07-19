@@ -58,11 +58,16 @@ public class RutaGastronomica extends ServicioTuristico implements Registrable{
     }
 
     @Override
-    public void mostrarResumen() {
+    public void registrar() {
+        System.out.println("Registrando ruta gastronómica: " + getNombre() + " | Valor: $" + valor);
+    }
+
+    @Override
+    public void mostrarDatos() {
         System.out.println("Ruta Gastronómica: " + getNombre());
         System.out.println("Duración: " + getDuracionHoras() + " horas");
         System.out.println("Número de paradas: " + numeroDeParadas);
         System.out.println("Hora de partida: " + horaPartida);
-        System.out.println("Valor: " + valor);
+        System.out.println("Valor: $" + valor);
     }
 }

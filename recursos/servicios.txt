@@ -1,0 +1,9 @@
+# Formato PASEO: PASEO;nombre;duracionHoras;tipoEmbarcacion;horaPartida;valor
+# Formato EXCURSION: EXCURSION;nombre;duracionHoras;lugarHistorico;horaPartida;valor
+# Formato RUTA: RUTA;nombre;duracionHoras;numeroParadas;horaPartida;valor
+PASEO;Tour Lago Llanquihue;3;Lancha a Motor;09:00;25000
+PASEO;Crucero Todos los Santos;5;Catamarán;10:30;45000
+EXCURSION;Visita Historica Frutillar;4;Museo Colonial Alemán;10:00;15000
+EXCURSION;Ruta Patrimonial Puerto Octay;6;Iglesia y Casa Alcalde;08:30;18000
+RUTA;Ruta del Salmon del Sur;5;4;09:00;30000
+RUTA;Sabores de Llanquihue;3;3;12:00;22000

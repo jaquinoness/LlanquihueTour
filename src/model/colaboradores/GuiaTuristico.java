@@ -55,7 +55,12 @@ public class GuiaTuristico extends Persona implements Registrable{
     }
 
     @Override
-    public void mostrarResumen() {
+    public void registrar() {
+        System.out.println("Registrando guía turístico: " + getNombre() + " " + getApellido() + " | Especialidad: " + especialidad);
+    }
+
+    @Override
+    public void mostrarDatos() {
         System.out.println("Guía Turístico: " + getNombre() + " " + getApellido());
         System.out.println("RUT: " + getRut());
         System.out.println("Teléfono: " + getTelefono());

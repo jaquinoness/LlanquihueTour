@@ -1,0 +1,5 @@
+# Formato: nombre;apellido;rut;telefono;email;calle;numero;comuna;ciudad;region;nacionalidad;tipoCliente
+Juan;Perez;12345678-9;+56912345678;juan.perez@mail.com;Arturo Prat;123;Llanquihue;Puerto Montt;Los Lagos;Chilena;nacional
+Maria;Gonzalez;98765432-1;+56987654321;maria.g@mail.com;OHiggins;456;Puerto Varas;Puerto Montt;Los Lagos;Chilena;nacional
+James;Smith;11111111-1;+1234567890;james.smith@mail.com;Av. Principal;789;Puerto Montt;Puerto Montt;Los Lagos;Estadounidense;extranjero
+Sofia;Muller;22222222-2;+4917612345678;sofia.muller@mail.com;Calle Sur;321;Frutillar;Puerto Montt;Los Lagos;Alemana;extranjero

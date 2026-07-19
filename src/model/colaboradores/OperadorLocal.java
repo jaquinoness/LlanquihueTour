@@ -55,7 +55,12 @@ public class OperadorLocal extends Persona implements Registrable{
     }
     
     @Override
-    public void mostrarResumen() {
+    public void registrar() {
+        System.out.println("Registrando operador local: " + getNombre() + " " + getApellido() + " | Cargo: " + cargo);
+    }
+
+    @Override
+    public void mostrarDatos() {
         System.out.println("Operador Local: " + getNombre() + " " + getApellido());
         System.out.println("RUT: " + getRut());
         System.out.println("Teléfono: " + getTelefono());
